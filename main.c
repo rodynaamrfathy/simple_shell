@@ -73,12 +73,10 @@ int main()
 			printf("%s\n", argv[i]);
 			i++;
 		}
-
+		printf("%d", argc);
 		free(argv);
 		free(line_cpy);
 	}
-	printf("%d", argc);
-
 	free(line);
 	return (0);
 }
