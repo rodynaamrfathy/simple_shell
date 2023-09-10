@@ -36,17 +36,17 @@ int main()
 
 		line_cpy = strdup(line);
 		token = strtok(line, delim);
-		argc = 1;
+		argc = 0;
 		/**
 		 * increment argc to malloc argv
 		 */
 		while (token)
 		{
-			token = strtok(NULL, delim);
 			argc++;
+			token = strtok(NULL, delim);
 		}
 
-		argv = malloc(sizeof(char *) * argc);
+		argv = malloc(sizeof(char *) * (argc + 1));
 		if(argv == NULL)
 		{
 			perror("malloc");
@@ -62,7 +62,7 @@ int main()
 			i++;
 		}
 
-		argv[argc - 1] = NULL;
+		argv[argc] = NULL;
 
 		/**
 		 * print argv
@@ -73,7 +73,7 @@ int main()
 			printf("%s\n", argv[i]);
 			i++;
 		}
-		printf("%d", argc);
+		printf("%d\n", argc);
 		free(argv);
 		free(line_cpy);
 	}
