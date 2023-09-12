@@ -74,6 +74,5 @@ int main(void)
 			waitpid(child_pid, &status, 0);
 		}
 	}
-	free(line);
 	return (0);
 }
