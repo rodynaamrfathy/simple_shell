@@ -22,14 +22,8 @@ int env_to_array(char *env_array[])
 
 	while((bytes_read = read(fd, line, sizeof(line))) > 0)
 	{
-		for (i = 0; i < bytes_read; i++)
-		{
-			if (line[i] == '\n')
-			{
-				line[i] = '\0';
-				break;
-			}
-		}	
+		/* null terminate the line */
+		line[bytes_read] = '\0';	
 
 		env_array[line_count] = strdup(line);
 		if (env_array[line_count] == NULL)
@@ -53,5 +47,9 @@ int env_to_array(char *env_array[])
 		}
 	}
 	close(fd);
+
+	/* Add the PATH environment variable to the array */
+	env_array[line_count] = getenv("PATH");
+
 	return (line_count);
 }
