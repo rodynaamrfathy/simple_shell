@@ -91,7 +91,6 @@ int main(void)
 		free(argv);
 		free(line_cpy);
 	}
-	free(env_strings);
 	free(line);
 	return (0);
 }
