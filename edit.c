@@ -1,5 +1,14 @@
 #include "shell.h"
 
+extern char **environ; // Declaration of the environ array
+
+// Function to print the current environment
+void print_environment() {
+    for (int i = 0; environ[i] != NULL; i++) {
+        printf("%s\n", environ[i]);
+    }
+}
+
 /**
  * main - simple shell
  *
@@ -11,16 +20,11 @@ int main(void)
 	size_t len = 0;
 	ssize_t read;
 	int argc, i = 0;
-	char **argv;
+	char *argv[10];
 	pid_t child_pid;
-	char *env_strings[MAX_LINES];
-	int env_count = env_to_array(env_strings);
 	char *full_path, *path;
 	int status;
-
-
-	if (env_count < 0)
-		return (-1);
+	char previous_directory[MAX_LINE_LENGTH];
 
 	while (1)
 	{
