@@ -13,6 +13,6 @@
 #define MAX_LINE_LENGTH 80
 #define MAX_ARGV 10
 
-int env_to_array(char *env_array[]);
+void print_environment(char **environ);
 
 #endif
