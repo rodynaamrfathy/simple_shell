@@ -1,5 +1,14 @@
 #include "shell.h"
 
+extern char **environ; // Declaration of the environ array
+
+// Function to print the current environment
+void print_environment() {
+    for (int i = 0; environ[i] != NULL; i++) {
+        printf("%s\n", environ[i]);
+    }
+}
+
 /**
  * main - simple shell
  *
@@ -7,20 +16,15 @@
  */
 int main(void)
 {
-	char *line = NULL, *line_cpy = NULL, *delim = "\" \'`\\*&#", *token = NULL;
+	char *line = NULL, *delim = " \n", *token = NULL;
 	size_t len = 0;
 	ssize_t read;
-	int argc, i = 0;
-	char **argv;
+	int i = 0;
+	char *argv[10];
 	pid_t child_pid;
-	char *env_strings[MAX_LINES];
-	int env_count = env_to_array(env_strings);
 	char *full_path, *path;
 	int status;
-
-
-	if (env_count < 0)
-		return (-1);
+	char previous_directory[MAX_LINE_LENGTH];
 
 	while (1)
 	{
@@ -33,39 +37,49 @@ int main(void)
 			exit(0);
 		}
 
-		line_cpy = strdup(line);
-		token = strtok(line, delim);
-		argc = 0;
-
-		/* increment argc to malloc argv */
-		while (token)
-		{
-			argc++;
-			token = strtok(NULL, delim);
-		}
-
-		argv = malloc(sizeof(char *) * (argc + 1));
-		if (argv == NULL)
-		{
-			perror("malloc");
-			break;
-		}
-
 		i  = 0;
-		token = strtok(line_cpy, delim);
+		token = strtok(line, delim);
 		while (token)
 		{
 			argv[i] = token;
 			token = strtok(NULL, delim);
 			i++;
 		}
-		argv[argc] = NULL;
+		argv[i] = NULL;
 		
 		/* handel built-in commands*/
 		if (strcmp(argv[0], "cd") == 0) 
 		{
-			chdir(argv[1]);
+			if (argv[1] == NULL)
+			{
+				chdir(getenv("HOME"));
+			}
+			else
+			{
+				if (strcmp(argv[1], "-") == 0)
+				{
+					if (previous_directory[0] != '\0')
+					{
+						printf("%s\n", previous_directory);
+						chdir(previous_directory);
+					}
+					else
+					{
+						printf("No previous directory available.\n");
+					}
+				}
+				else
+				{
+					getcwd(previous_directory, sizeof(previous_directory));
+					chdir(argv[1]);
+				}
+			}
 			continue;
+		}
+		else if (strcmp(argv[0], "env") == 0)
+		{
+			 print_environment();
+			 continue;
 		}
 		else if (strcmp(argv[0], "exit") == 0)
 		{
@@ -73,12 +87,11 @@ int main(void)
 			free(line);
 			exit (0);
 		}
-		pid_t child_pid = fork();
+		child_pid = fork();
 
 		if (child_pid == -1)
 		{
-			/* Handle fork error */
-			free(line_cpy);
+			/* Handle fork error*/
 			perror("fork");
 			break;
 		}
@@ -86,28 +99,17 @@ int main(void)
 		{
 			/* This code is executed in the child process
 			* Get the PATH environment variable */
-			path = getenv("PATH");
-
-			/* Search for the command in the PATH */
-			full_path = malloc(strlen(path) + strlen(argv[0]) + 2);
-			strcpy(full_path, path);
-			strcat(full_path, "/");
-			strcat(full_path, argv[0]);
-
-			if (execve(full_path, argv, env_strings) == -1)
-			{
-				perror("exec");
-				exit(EXIT_FAILURE);
-			}
+			char command_path[256];
+			snprintf(command_path, sizeof(command_path), "/usr/bin/%s", argv[0]);
+			execve(command_path, argv, environ);
+			perror("execve failed");
+			exit(1);
 		}
 		else /* Parent process */
 		{
 			/* Wait for the child to finish */
 			waitpid(child_pid, &status, 0);
 		}
-
-		free(argv);
-		free(line_cpy);
 	}
 	free(line);
 	return (0);
