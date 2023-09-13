@@ -15,6 +15,18 @@ void print_environment() {
         printf("%s\n", environ[i]);
     }
 }
+void append_string(char *array, const char *string) {
+  int i, j;
+
+  for (i = 0; array[i]; i++) {
+  }
+
+  for (j = 0; string[j]; j++) {
+    array[i + j] = string[j];
+  }
+
+  array[i + j] = '\0';
+}
 
 int main() {
     char *line = NULL;
@@ -82,7 +94,6 @@ int main() {
             exit(1);
         } else if (pid == 0) {
             // child process
-            execve(args[0], args, environ); // Use execve for command execution
             // If execve fails, try adding the path prefix
             char command_path[256];
             snprintf(command_path, sizeof(command_path), "/usr/bin/%s", args[0]);
