@@ -13,6 +13,6 @@
 #define MAX_LINE_LENGTH 80
 #define MAX_ARGV 10
 
-void print_environment(char **environ);
+ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 
 #endif
