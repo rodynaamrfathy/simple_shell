@@ -13,7 +13,11 @@
 #define MAX_LINE_LENGTH 80
 #define MAX_ARGV 10
 
+extern char **environ;
+
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 void print_environment(char **environ);
-ssize_t getline(char *buf, size_t len, int fd);
+int _getline(char **line, int *len);
+char *_strtok(char *str, const char *delimiters);
 
 #endif

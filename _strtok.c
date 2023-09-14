@@ -6,7 +6,7 @@
  *
  * Return: token
  */
-char *strtok(char *str, const char *delim)
+char *_strtok(char *str, const char *delimiters)
 {
 	
 }

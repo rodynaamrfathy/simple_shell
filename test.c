@@ -7,9 +7,9 @@
 char *custom_getline(void);
 
 char *custom_getline(void) {
-    static char buffer[BUFFER_SIZE];
-    static int buffer_index = 0;
-    static int buffer_size = 0;
+    char buffer[BUFFER_SIZE];
+    int buffer_index = 0;
+    int buffer_size = 0;
 
     char *line = NULL;
     int line_index = 0;
@@ -40,4 +40,17 @@ char *custom_getline(void) {
     }
 
     return line;
+}
+
+int main() {
+    printf("Enter a line of text: ");
+    fflush(stdout);
+
+    char *line = custom_getline();
+
+    printf("You entered: %s\n", line);
+
+    free(line);
+
+    return 0;
 }

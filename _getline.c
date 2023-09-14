@@ -1,29 +1,38 @@
 #include "shell.h"
 
-/**
- * _getline - get line from cmd line
- * @buf: buffer.
- * @len: string len.
- * @fd: pointer to a file
- *
- * Return: -1 on fail, 0 success
- */
-ssize_t _getline(char *buf, size_t len, int fd)
+int _getline(char **line, int *len)
 {
-	ssize_t result;
+	char buffer[1024];
+	int buffer_index = 0;
+	int buffer_size = 0;
+	char c;
 
-	if (buf == NULL || len <= 0)
+	if (line == NULL)
 		return (-1);
 
-	/* leave space for null termantion */
-	result = read(fd, buf, len - 1);
-	if (result == -1)
-	{
-		perror("read");
-		return (-1);
+	while (1)
+	{	
+		/* If the buffer is empty, read more input */
+		if (buffer_index >= buffer_size)
+		{
+			buffer_size = read(STDIN_FILENO, buffer, 1024);
+			buffer_index = 0;
+			if (buffer_size <= 0)
+			{
+				break;
+			}
+		}		
+		/* Read a character from the buffer */
+ 		c = buffer[buffer_index++];
+		if (c == '\n')
+			/* End of line, terminate the string */
+			(*line)[*len] = '\0';
+		break;
+		else
+		{
+			*line = _realloc(*line, (*len + 1) * sizeof(char));
+			(*line)[(*len)++] = c;
+		}
 	}
-
-	buf[result] = '\0';
-
-	return result;
+	return (*len);
 }

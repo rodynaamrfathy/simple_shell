@@ -1,5 +1,4 @@
 #include "shell.h"
-extern char **environ;
 
 /**
  * main - simple shell
@@ -8,18 +7,19 @@ extern char **environ;
 int main(void)
 {
 	char *line = NULL, *delim = " \n", *token = NULL;
-	size_t len = 0;
+	int len = 0;
 	ssize_t read;
 	int i = 0;
 	char *argv[10];
 	pid_t child_pid;
 	int status;
 	char previous_directory[MAX_LINE_LENGTH];
+	char command_path[256];
 
 	while (1)
 	{
 		printf("HOME$ ");
-		read = getline(&line, &len, stdin);
+		read = _getline(&line, &len);
 		if (read == -1)
 		{
 			printf("\nDisconecting...\n");
@@ -82,7 +82,6 @@ int main(void)
 		}
 		else if (child_pid == 0)
 		{
-			char command_path[256];
 			snprintf(command_path, sizeof(command_path), "/usr/bin/%s", argv[0]);
 			execve(command_path, argv, environ);
 			perror("execve failed");
