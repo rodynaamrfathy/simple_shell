@@ -1,11 +1,8 @@
 #include "shell.h"
-
-/*Declaration of the environ array*/
 extern char **environ;
 
 /**
  * main - simple shell
- *
  * return: 0 on success and -1 on failing
  */
 int main(void)
@@ -29,7 +26,6 @@ int main(void)
 			free(line);
 			exit(0);
 		}
-
 		i  = 0;
 		token = strtok(line, delim);
 		while (token)
@@ -39,8 +35,6 @@ int main(void)
 			i++;
 		}
 		argv[i] = NULL;
-		
-		/* handel built-in commands*/
 		if (strcmp(argv[0], "cd") == 0) 
 		{
 			if (argv[1] == NULL)
@@ -81,26 +75,21 @@ int main(void)
 			exit (0);
 		}
 		child_pid = fork();
-
 		if (child_pid == -1)
 		{
-			/* Handle fork error*/
 			perror("fork");
 			break;
 		}
 		else if (child_pid == 0)
 		{
-			/* This code is executed in the child process
-			* Get the PATH environment variable */
 			char command_path[256];
 			snprintf(command_path, sizeof(command_path), "/usr/bin/%s", argv[0]);
 			execve(command_path, argv, environ);
 			perror("execve failed");
 			exit(1);
 		}
-		else /* Parent process */
+		else
 		{
-			/* Wait for the child to finish */
 			waitpid(child_pid, &status, 0);
 		}
 	}
