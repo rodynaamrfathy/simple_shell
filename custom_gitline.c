@@ -41,16 +41,3 @@ char *custom_getline(void) {
 
     return line;
 }
-
-int main() {
-    printf("Enter a line of text: ");
-    fflush(stdout);
-
-    char *line = custom_getline();
-
-    printf("You entered: %s\n", line);
-
-    free(line);
-
-    return 0;
-}
