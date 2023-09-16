@@ -25,12 +25,14 @@ int _getline(char **line, int *len)
 		/* Read a character from the buffer */
  		c = buffer[buffer_index++];
 		if (c == '\n')
+		{
 			/* End of line, terminate the string */
 			(*line)[*len] = '\0';
-		break;
+			break;
+		}
 		else
 		{
-			*line = _realloc(*line, (*len + 1) * sizeof(char));
+			*line = _realloc(*line, (*len) * sizeof(char) ,(*len + 1) * sizeof(char));
 			(*line)[(*len)++] = c;
 		}
 	}
