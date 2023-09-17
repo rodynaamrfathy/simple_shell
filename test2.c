@@ -6,6 +6,7 @@
 void cdd(char *argv[])
 {
 	char previous_directory[MAX_LINE_LENGTH];
+	previous_directory[0] = '\0';
 
 	if (argv[1] == NULL)
 	{
@@ -27,11 +28,10 @@ void cdd(char *argv[])
 		}
 		else
 		{
-			getcwd(previous_directory, sizeof(previous_directchdiry));
+			getcwd(previous_directory, sizeof(previous_directory));
 			chdir(argv[1]);
 		}
 	}
-	continue;
 }
 /**
  * child_check - check the child pid
@@ -47,7 +47,6 @@ void child_check(char *argv[])
 	if (child_pid == -1)
 	{
 		perror("fork");
-		break;
 	}
 	else if (child_pid == 0)
 	{
@@ -88,7 +87,7 @@ int main(void)
 		read = _getline(&line, &len);
 		if (read == -1)
 		{
-			read_check(line)
+			read_check(line);
 		}
 		i  = 0;
 		token = strtok(line, delim);
@@ -101,7 +100,8 @@ int main(void)
 		argv[i] = NULL;
 		if (strcmp(argv[0], "cd") == 0)
 		{
-			cdd(argv[1]);
+			cdd(argv);
+			continue;
 		}
 		else if (strcmp(argv[0], "env") == 0)
 		{

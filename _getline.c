@@ -1,4 +1,9 @@
 #include "shell.h"
+/**
+ * _getline - work as getline
+ * @line: line to get from user
+ * @len: length of line
+ */
 
 int _getline(char **line, int *len)
 {
@@ -11,7 +16,7 @@ int _getline(char **line, int *len)
 		return (-1);
 
 	while (1)
-	{	
+	{
 		/* If the buffer is empty, read more input */
 		if (buffer_index >= buffer_size)
 		{
@@ -21,9 +26,9 @@ int _getline(char **line, int *len)
 			{
 				break;
 			}
-		}		
+		}
 		/* Read a character from the buffer */
- 		c = buffer[buffer_index++];
+		c = buffer[buffer_index++];
 		if (c == '\n')
 		{
 			/* End of line, terminate the string */
@@ -32,7 +37,7 @@ int _getline(char **line, int *len)
 		}
 		else
 		{
-			*line = _realloc(*line, (*len) * sizeof(char) ,(*len + 1) * sizeof(char));
+			*line = _realloc(*line, (*len) * sizeof(char), (*len + 1) * sizeof(char));
 			(*line)[(*len)++] = c;
 		}
 	}
