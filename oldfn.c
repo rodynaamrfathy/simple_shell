@@ -93,7 +93,7 @@ int main(void)
 		{
 			/* This code is executed in the child process
 			* Get the PATH environment variable */
-			snprintf(command_path, sizeof(command_path), "/usr/bin/%s", argv[0]);
+			_snprintf(command_path, sizeof(command_path), "/usr/bin/", argv[0]);
 			execve(command_path, argv, environ);
 			perror("execve failed");
 			exit(1);

@@ -15,6 +15,8 @@
 
 extern char **environ;
 
+size_t custom_strlen(const char *str);
+int _snprintf(char *str, size_t size, char *str1, char *str2);
 int _putchar(char c);
 void _sprintf(char *str);
 void _shell(char *argv[]);

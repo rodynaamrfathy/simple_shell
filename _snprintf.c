@@ -9,7 +9,32 @@
  *
  * Retunr: 0 on succeess, -1 on fail.
  */
-int snprintf(char *str, size_t size, char *str1, char *str2)
+int _snprintf(char *str, size_t size, char *str1, char *str2)
 {
-	
-} 
+	size_t total_length;
+
+	if (str1 == NULL || str2 == NULL)
+		return (-1);
+
+	total_length = custom_strlen(str1) + custom_strlen(str2);
+
+	if (total_length >= size)
+		return (-1);
+
+	while (*str1 != '\0')
+	{
+		*str = *str1;
+		str++;
+		str1++;
+	}
+
+	while (*str2 != '\0')
+	{
+		*str = *str2;
+		str++;
+		str2++;
+	}
+
+	*str = '\0';
+	return (0);
+}
