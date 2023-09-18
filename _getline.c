@@ -1,10 +1,3 @@
-#include "shell.h"
-/**
- * _getline - work as getline
- * @line: line to get from user
- * @len: length of line
- */
-
 int _getline(char **line, int *len)
 {
 	char buffer[1024];
@@ -22,9 +15,14 @@ int _getline(char **line, int *len)
 		{
 			buffer_size = read(STDIN_FILENO, buffer, 1024);
 			buffer_index = 0;
-			if (buffer_size <= 0)
+			if (buffer_size < 0)
 			{
-				break;
+				perror("read");
+				return (-1); /* Handle read error */
+			}
+			else if (buffer_size == 0)
+			{
+				break; /* End of input */
 			}
 		}
 		/* Read a character from the buffer */
@@ -38,6 +36,11 @@ int _getline(char **line, int *len)
 		else
 		{
 			*line = _realloc(*line, (*len) * sizeof(char), (*len + 1) * sizeof(char));
+			if (*line == NULL)
+			{
+				perror("_realloc");
+				return (-1); /* Handle memory allocation error */
+			}
 			(*line)[(*len)++] = c;
 		}
 	}
