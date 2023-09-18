@@ -1,9 +1,9 @@
-##Our Own Version Of Simple Shell
+## Our Own Version Of Simple Shell
 
-#Simple Shell Project (0x16)
+# Simple Shell Project (0x16)
 This is a group project for the ALX software engineering internship. The project aims to create a simple UNIX command interpreter (shell) in the C programming language.
 
-#Project Description
+# Project Description
 The goal of this project is to create a basic shell that can execute simple UNIX commands. The shell should display a prompt, accept user commands, execute them, and handle basic features like arguments, PATH, built-in commands, and logical operators.
 
 # How to Use
