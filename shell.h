@@ -13,18 +13,24 @@
 #define MAX_LINE_LENGTH 80
 #define MAX_ARGV 10
 
+/* include system enviroment */
 extern char **environ;
 
+/* text edit functions */
 size_t custom_strlen(const char *str);
 int _snprintf(char *str, size_t size, char *str1, char *str2);
 int _putchar(char c);
 void _sprintf(char *str);
-void _shell(char *argv[]);
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
-void print_environment(char **environ);
-int _getline(char **line, int *len);
 char *_strtok(char *str, const char *delimiters);
 int _strcmp(char *str1,char *str2);
+
+/* functions to handle special commands */
+void print_environment(char **environ);
 void cdd(char *argv[], char previous_directory[], size_t previous_directory_size);
+
+/* built-in functions */
+void _shell(char *argv[]);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+int _getline(char **line, int *len);
 
 #endif
