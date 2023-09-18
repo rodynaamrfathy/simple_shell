@@ -15,6 +15,7 @@
 
 extern char **environ;
 
+int _putchar(char c);
 void _sprintf(char *str);
 void _shell(char *argv[]);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
