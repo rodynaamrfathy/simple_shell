@@ -7,20 +7,25 @@
  */
 int main(void)
 {
+	char *line = NULL, *delim = " \n", *token = NULL;
+	size_t len = 0;
+	int i = 0;
+	char *argv[10], previous_directory[MAX_LINE_LENGTH];
+
 	while (1)
 	{
 		printf("HOME$ ");
-		if (_getline(&line, &len) == -1)
+		if (getline(&line, &len, stdin) == -1)
 		{
-			printf("\nDisconnecting...\n");
+			_sprintf("\nDisconnecting...\n");
 			free(line);
 			exit(0);
 		}
-		token = _strtok(line, delim);
+		token = strtok(line, delim);
 		while (token)
 		{
 			argv[i] = token;
-			token = _strtok(NULL, delim);
+			token = strtok(NULL, delim);
 			i++;
 		}
 		argv[i] = NULL;
@@ -34,13 +39,13 @@ int main(void)
 		}
 		else if (_strcmp(argv[0], "exit") == 0)
 		{
-			printf("[Disconnecting...]\n");
+			_sprintf("[Disconnecting...]\n");
 			free(line);
 			exit(0);
 		}
 		else
 		{
-			_shell();
+			_shell(argv);
 		}
 	}
 	free(line);

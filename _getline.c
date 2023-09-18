@@ -1,16 +1,22 @@
+#include "shell.h"
+
+/**
+ * _getline - scan line
+ * @line: buff to store line.
+ * @len: len.
+ *
+ * Return: 0 on success, -1 on fail.
+ */
 int _getline(char **line, int *len)
 {
-	char buffer[1024];
-	int buffer_index = 0;
-	int buffer_size = 0;
-	char c;
+	char buffer[1024], c;
+	int buffer_size = 0, buffer_index = 0;
 
 	if (line == NULL)
 		return (-1);
 
 	while (1)
 	{
-		/* If the buffer is empty, read more input */
 		if (buffer_index >= buffer_size)
 		{
 			buffer_size = read(STDIN_FILENO, buffer, 1024);
@@ -25,11 +31,9 @@ int _getline(char **line, int *len)
 				break; /* End of input */
 			}
 		}
-		/* Read a character from the buffer */
 		c = buffer[buffer_index++];
 		if (c == '\n')
 		{
-			/* End of line, terminate the string */
 			(*line)[*len] = '\0';
 			break;
 		}

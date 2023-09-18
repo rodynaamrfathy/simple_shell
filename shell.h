@@ -15,16 +15,8 @@
 
 extern char **environ;
 
-char *line = NULL, *delim = " \n", *token = NULL;
-int len = 0;
-int i = 0;
-char *argv[10];
-pid_t child_pid;
-int status;
-char previous_directory[MAX_LINE_LENGTH];
-char command_path[256];
-
-void _shell(void);
+void _sprintf(char *str);
+void _shell(char *argv[]);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 void print_environment(char **environ);
 int _getline(char **line, int *len);
