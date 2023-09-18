@@ -1,12 +1,35 @@
-Simple Shell Project (0x16)
-This is a group project for the ALX School. The project aims to create a simple UNIX command interpreter (shell) in the C programming language.
+# Our Own Version Of Simple Shell
 
-Project Description
+## Simple Shell Project (0x16)
+This is a group project for the ALX software engineering internship. The project aims to create a simple UNIX command interpreter (shell) in the C programming language.
+
+## Project Description
 The goal of this project is to create a basic shell that can execute simple UNIX commands. The shell should display a prompt, accept user commands, execute them, and handle basic features like arguments, PATH, built-in commands, and logical operators.
 
-How to Use
+## How to Use
 To compile the shell, use the following command:
-gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
+
+~~~bash  
+  git clone https://github.com/rodynaamrfathy/simple_shell.git
+~~~
+
+Go to the project directory  
+
+~~~bash  
+  cd simple_shell
+~~~
+
+Compilation  
+
+~~~bash  
+gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o shell
+~~~
+
+Start the app 
+
+~~~bash  
+./shell
+~~~  
 
 Project Tasks
 The project is divided into multiple tasks, each building upon the previous ones. Tasks include implementing features like handling arguments, built-in commands, and logical operators.
