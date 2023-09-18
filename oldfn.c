@@ -85,14 +85,11 @@ int main(void)
 
 		if (child_pid == -1)
 		{
-			/* Handle fork error*/
 			perror("fork");
 			break;
 		}
 		else if (child_pid == 0)
 		{
-			/* This code is executed in the child process
-			* Get the PATH environment variable */
 			_snprintf(command_path, sizeof(command_path), "/usr/bin/", argv[0]);
 			execve(command_path, argv, environ);
 			perror("execve failed");
