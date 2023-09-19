@@ -13,7 +13,7 @@ int main(void)
 
 	while (1)
 	{
-	_sprintf("HOME$ ");
+	_sprintf("$ ");
 	read = getline(&line, &len, stdin);
 	if (read == -1)
 	{
