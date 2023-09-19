@@ -3,7 +3,7 @@
 /**
  * _argv - filliing the array of strings
  * @argv: argv.
- *
+ * @line: line to fill
  * Return: nothing
  */
 void _argv(char ***argv, char *line)
@@ -19,5 +19,5 @@ void _argv(char ***argv, char *line)
 		token = strtok(NULL, delim);
 		i++;
 	}
-	(*argv)[i] = NULL;	
+	(*argv)[i] = NULL;
 }

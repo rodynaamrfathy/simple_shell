@@ -14,7 +14,7 @@ void cdd(char *argv[], char previous_directory[], size_t prev_directory_size)
 		chdir(getenv("HOME"));
 	else
 	{
-		if (strcmp(argv[1], "-") == 0)
+		if (_strcmp(argv[1], "-") == 0)
 		{
 			if (previous_directory[0] != '\0')
 			{
@@ -23,7 +23,7 @@ void cdd(char *argv[], char previous_directory[], size_t prev_directory_size)
 			}
 			else
 			{
-				printf("No previous directory available.\n");
+				_sprintf("No previous directory available.\n");
 			}
 		}
 		else
