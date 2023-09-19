@@ -19,7 +19,7 @@ void _shell(char *argv[])
 	}
 	if (child_pid == 0)
 	{
-		_snprintf(command_path, sizeof(command_path), "/usr/bin/", argv[0]);
+		_snprintf(command_path, 256, "/usr/bin/", argv[0]);
 		execve(command_path, argv, environ);
 		perror("execve failed");
 		exit(1);
