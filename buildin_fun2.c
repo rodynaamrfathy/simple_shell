@@ -103,7 +103,7 @@ return (EXIT_SUCCESS);
 i++;
 }
 
-newenviron = copy_array(environ);
+newenviron = copy_array2(environ);
 if (!newenviron)
 {
 perror("Memory allocation failed");
