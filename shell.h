@@ -35,7 +35,8 @@ char *_str_concat(char *str1, char *str2);
 char **get_path(void);
 char *get_environ(char *string);
 
-void before_execution(char **args, char **paths, int p_cnt, char *p_path, int *st);
+void before_execution(char **args, char **paths, int p_cnt,
+		char *p_path, int *st);
 void execution(char **arguments, int *st);
 
 char **copy_array(char **str);
