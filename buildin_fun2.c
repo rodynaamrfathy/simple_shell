@@ -37,7 +37,7 @@ environ[i][index] = '\0';
 }
 
 /**
- * copy_array - hard copy
+ * copy_array2 - hard copy
  * @str: array of strings
  * Return: allocated new copy array
  */
